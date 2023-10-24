@@ -1,0 +1,81 @@
+﻿@model List<TivitIndexViewModel>
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_tema24.cshtml";
+}
+
+@* Yeni tema ile *@
+
+<div class="container-fluid pb-4 pt-4 paddding">
+    <div class="container paddding">
+        <div class="row mx-0">
+            <div class="col-md-8 animate-box" data-animate-effect="fadeInLeft">
+                <div>
+                    <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">Sayfan</div>
+                </div>
+                @foreach (var item in Model)
+                {
+                    <div class="row pb-10" style=" margin-bottom:70px">
+                        <div class="col-md-9">
+                            <div class="fh5co_hover_news_img">
+                                <div style="display: flex; align-items: center; margin:10px">
+                                    <div style="width: 75px; height: 75px; overflow: hidden; border-radius: 50%;">
+                                        @{
+                                            if(item.AppUser.ProfilePicture!=null)
+                                            {
+                                                <img src="@item.AppUser.ProfilePicture" style="width: 100%; height: 100%; object-fit: cover;" />
+                                            }
+                                            else
+                                            {
+                                                   <img src="/profilepicture.jpg" style="width: 100%; height: 100%; object-fit: cover;"/>
+                                            }
+                                        }
+                                    </div>
+                                    <div style="margin-left: 10px;">
+                                        <a><b>@item.AppUser.Name @item.AppUser.Surname</b></a>
+                                        <a>@Html.Raw("@")<span style="font-style: italic;">@item.AppUser.UserName - @item.InsertedDate</span></a>
+
+                                        <div class="fh5co_consectetur">
+                                            @item.Tivit
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                @{
+                                    if (item.TivitPhotos != null)
+                                    {
+                                        @foreach (var media in item.TivitPhotos)
+                                        {
+                                            <div>
+                                                <img src="@media.MediaPath" alt="" style="max-width: 480px; max-height: 320px;" />
+                                            </div>
+
+                                        }
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+
+            @await Component.InvokeAsync("YanMenu")
+
+        </div>
+    </div>
+    @* <div class="row mx-0">
+        <div class="col-12 text-center pb-4 pt-4">
+            <a href="#" class="btn_mange_pagging"><i class="fa fa-long-arrow-left"></i>&nbsp;&nbsp; Previous</a>
+            <a href="#" class="btn_pagging">1</a>
+            <a href="#" class="btn_pagging">2</a>
+            <a href="#" class="btn_pagging">3</a>
+            <a href="#" class="btn_pagging">...</a>
+            <a href="#" class="btn_mange_pagging">Next <i class="fa fa-long-arrow-right"></i>&nbsp;&nbsp; </a>
+        </div>
+    </div> *@
+</div>
+
+

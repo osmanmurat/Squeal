@@ -1,0 +1,52 @@
+﻿@model TivitIndexViewModel
+@{
+    ViewData["Title"] = "TivitIndex";
+    Layout = "~/Views/Shared/_tema24.cshtml";
+}
+
+@if (TempData["TivitIndexSuccessMsg"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>BİLGİ!</strong> @TempData["TivitIndexSuccessMsg"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <br />
+}
+
+<div class="row justify-content-center" style="margin-top: 20px;">
+    <form asp-controller="Home" asp-action="TivitIndex" method="post"
+          enctype="multipart/form-data">
+        <input type="hidden" asp-for="UserId" />
+        <div class="col-12">
+            <div class="col-9">
+                <textarea class="form-control" asp-for="Tivit" id="tivitmessage"></textarea>
+                <p id="sayim">0/500</p>
+                <span style="float:right"
+                      class="badge bg-secondary" id="tivitmessagebadge"></span>
+                <input type="file" asp-for="TivitPictures" multiple accept=".png, .jpg, .jpeg" />
+            </div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-info">Gönder</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="tivitdiv">
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#tivitmessage").keyup(function () {
+                var characterCount = $("#tivitmessage").val().length;
+                var x = characterCount + "/500";
+
+                document.getElementById("sayim").innerHTML = x
+                $("#tivitmessagebadge").text(x);
+                console.log(x);
+            });
+        });
+    </script>
+}
+
